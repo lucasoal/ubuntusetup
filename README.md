@@ -16,6 +16,9 @@ The script automates the installation and configuration of a full development wo
 
 > [!IMPORTANT]
 > Use [autoinstall.yaml](autoinstall.yaml) during the instalation.
+>   ```
+>   https://raw.githubusercontent.com/lucasoal/my_gnome_setup/refs/heads/main/autoinstall.yaml
+>   ```
 >
 > <img src="assets/autoinstall.png" width="40%"> <br>
 
