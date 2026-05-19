@@ -16,7 +16,7 @@
 > [!IMPORTANT]
 > Use [autoinstall.yaml](autoinstall.yaml) during the instalation.
 > ```
-> https://lucasoal.github.io/ubntsetup/autoinstall.html
+> https://lucasoal.github.io/ubntsetup/autoinstall.yaml
 > ```
 > or
 > ```
