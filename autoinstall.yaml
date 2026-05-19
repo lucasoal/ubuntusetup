@@ -1,0 +1,325 @@
+#cloud-config
+autoinstall:
+    # version is an Autoinstall required field.
+    version: 1
+    locale: pt_BR.UTF-8
+    timezone: America/Sao_Paulo
+    keyboard:
+        layout: br
+
+    # This adds the default ubuntu-desktop packages to the system.
+    # Any desired additional packages may also be listed here.
+    packages:
+        - bat
+        - bsdutils
+        - build-essential
+        - cloudflare-warp
+        - code
+        - curl
+        - dash
+        - dconf-cli
+        - default-jdk
+        - diffutils
+        - efibootmgr
+        - fd-find
+        - findutils
+        - flameshot
+        - fzf
+        - git
+        - git-lfs
+        - gnome
+        - gnome-clocks
+        - gnome-shell-extension-manager
+        - gnome-shell-extensions
+        - gnome-tweaks
+        - gnome-weather
+        - google-chrome-stable
+        - gpg
+        - grep
+        - grub-efi-amd64
+        - grub-efi-amd64-signed
+        - gzip
+        - hostname
+        - htop
+        - ibus-table-cangjie-big
+        - ibus-table-cangjie3
+        - ibus-table-cangjie5
+        - init
+        - jq
+        - kdenlive
+        - language-pack-en
+        - language-pack-en-base
+        - language-pack-gnome-en
+        - language-pack-gnome-en-base
+        - libchewing3
+        - libchewing3-data
+        - libm17n-0
+        - libmarisa0
+        - libopencc-data
+        - libopencc1.1
+        - libotf1
+        - libpinyin-data
+        - libpinyin15
+        - linux-generic-hwe-24.04
+        - linux-modules-nvidia-580-generic-hwe-24.04
+        - login
+        - lsb-release
+        - m17n-db
+        - make
+        - ncurses-base
+        - ncurses-bin
+        - neofetch
+        - nodejs
+        - nvidia-driver-580
+        - openssh-server
+        - postgresql
+        - postgresql-contrib
+        - python3-pip
+        - python3-venv
+        - python3.10
+        - python3.12
+        - python3.14
+        - remmina
+        - ripgrep
+        - shim-signed
+        - snapd
+        - software-properties-common
+        - tar
+        - tilix
+        - tree
+        - ubuntu-desktop
+        - ubuntu-desktop-minimal
+        - ubuntu-minimal
+        - ubuntu-standard
+        - ubuntu-wallpapers
+        - unzip
+        - vim
+        - wbritish
+        - wget
+        - whois
+        - yt-dlp
+        - zip
+        - zsh
+
+    # This adds the default snaps found on a 22.04 Ubuntu Desktop system.
+    # Any desired additional snaps may also be listed here.
+    snaps:
+        - name: bare
+        - name: brave
+        - name: core18
+        - name: core22
+        - name: core24
+        - name: cups
+        - name: dbeaver-ce
+        - name: discord
+        - name: firefox
+        - name: firmware-updater
+        - name: gnome-42-2204
+        - name: gnome-46-2404
+        - name: gtk-common-themes
+        - name: mesa-2404
+        - name: onlyoffice-desktopeditors
+        - name: postman
+        - name: pyenv
+        - name: snap-store
+        - name: snapd
+        - name: snapd-desktop-integration
+
+    # User creation can occur in one of 3 ways:
+    # 1. Create a user using this `identity` section.
+    # 2. Create users as documented in cloud-init inside the user-data section,
+    #    which means this single-user identity section may be removed.
+    # 3. Prompt for user configuration on first boot.  Remove this identity
+    #    section and see the "Installation without a default user" section.
+    identity:
+        realname: "Username"
+        username: user
+        # A password hash is needed. `mkpasswd --method=SHA-512` can help.
+        # mkpasswd can be found in the package 'whois'
+        # By default: '123'
+        password: $y$j9T$FnwitrYOiBEcaMok75FIs.$3XxOYKBAHRyid5X7gMtwCevTrkpUHSYgdmNeCTI/kE6
+        hostname: computer
+
+    # Subiquity will, by default, configure a partition layout using LVM.
+    # The 'direct' layout method shown here will produce a non-LVM result.
+    storage:
+        layout:
+            name: direct
+
+    # Ubuntu Desktop uses the hwe flavor kernel by default.
+    early-commands:
+        - echo 'linux-generic-hwe-22.04' > /run/kernel-meta-package
+
+    # The live-server ISO does not contain some of the required packages,
+    # such as ubuntu-desktop or the hwe kernel (or most of their depdendencies).
+    # The system being installed will need some sort of apt access.
+    # proxy: http://192.168.0.1:3142
+
+    late-commands:
+        # Enable the boot splash
+        - >-
+          curtin in-target -- sed -i /etc/default/grub -e
+          's/GRUB_CMDLINE_LINUX_DEFAULT=".*/GRUB_CMDLINE_LINUX_DEFAULT="quiet
+          splash"/'
+        - curtin in-target -- update-grub
+
+        # Let NetworkManager handle network
+        - rm /target/etc/netplan/00-installer-config*yaml
+        - >-
+          printf "network:\n  version: 2\n  renderer: NetworkManager" >
+          /target/etc/netplan/01-network-manager-all.yaml
+
+        # Remove default filesystem and related tools not used with the suggested
+        # 'direct' storage layout.  These may yet be required if different
+        # partitioning schemes are used.
+        - >-
+          curtin in-target -- apt-get remove -y btrfs-progs cryptsetup* lvm2
+          xfsprogs
+
+        # Remove other packages present by default in Ubuntu Server but not
+        # normally present in Ubuntu Desktop.
+        - >-
+          curtin in-target -- apt-get remove -y ubuntu-server
+          ubuntu-server-minimal binutils byobu curl dmeventd finalrd gawk kpartx
+          mdadm ncurses-term needrestart open-iscsi openssh-server sg3-utils
+          ssh-import-id sssd thin-provisioning-tools vim tmux sosreport screen
+          open-vm-tools motd-news-config lxd-agent-loader landscape-common htop
+          git fonts-ubuntu-console ethtool
+
+        # Keep cloud-init, as it performs some of the installation on first boot.
+        - curtin in-target -- apt-get install -y cloud-init
+
+        # Finally, remove things only installed as dependencies of other things
+        # we have already removed.
+        - curtin in-target -- apt-get autoremove -y
+        # A postinstall script may optionally be used for further install
+        # customization. Deploy this postinstall.sh script on the webserver.
+        # - wget -O /target/postinstall.sh http://192.168.0.2/postinstall.sh
+        # - curtin in-target -- bash /postinstall.sh
+        # - rm /target/postinstall.sh
+
+        # Additional cloud-init configuration affecting the target
+        # system can be supplied underneath a user-data section inside of
+        # autoinstall.
+        # user-data:
+        #   …
+
+        # ++++++++++++++
+        # + My configs +
+        # ++++++++++++++
+        # 1. Limpeza de Jogos Stock
+        - curtin in-target -- dash -c "apt purge -y *solitaire* *gnome-games*
+          *mines* && apt autoremove -y"
+
+        # 2. Navegadores e IDEs (DEB Externos)
+        - curtin in-target -- dash -c "wget -q
+          https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+          -P /tmp/"
+        - curtin in-target -- dash -c "wget -q -O /tmp/vs-code.deb
+          'https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64'"
+        - curtin in-target -- dash -c "apt install -y /tmp/*.deb"
+
+        # 3. Python PPA Deadsnakes
+        - curtin in-target -- add-apt-repository -y ppa:deadsnakes/ppa
+        - curtin in-target -- apt update
+        - curtin in-target -- apt install -y python3.10 python3.12 python3.14
+
+        # 4. Cloudflare WARP
+        - curtin in-target -- dash -c "curl -fsSL
+          https://pkg.cloudflareclient.com/pubkey.gpg | gpg --dearmor -o
+          /usr/share/keyrings/cloudflare-warp.gpg"
+        - curtin in-target -- dash -c "echo 'deb
+          [signed-by=/usr/share/keyrings/cloudflare-warp.gpg]
+          https://pkg.cloudflareclient.com/ focal main' >
+          /etc/apt/sources.list.d/cloudflare-client.list"
+        - curtin in-target -- apt update
+        - curtin in-target -- apt install -y cloudflare-warp
+
+        # 5. Oh My Zsh e Shell (para o usuário 'usuario')
+        - curtin in-target -- sudo -u usuario sh -c "$(curl -fsSL
+          https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+          "" --unattended
+        - curtin in-target -- sed -i 's/^ZSH_THEME=.*/ZSH_THEME="bira"/'
+          /home/usuario/.zshrc
+
+        # 6. Configuração de atalho customizado (Exemplo: Flameshot com Super+Print)
+        - curtin in-target -- sudo -u user dbus-run-session gsettings set
+          org.gnome.settings-daemon.plugins.media-keys custom-keybindings
+          "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/',
+          '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/',
+          '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/',
+          '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/',
+          '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/']"
+
+        - curtin in-target -- sudo -u usuario dbus-run-session gsettings set
+          org.gnome.settings-daemon.plugins.media-keys custom-keybindings
+          "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/']"
+        - curtin in-target -- sudo -u usuario dbus-run-session gsettings set
+          org.gnome.settings-daemon.plugins.media-keys.custom-keybindings:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/
+          name 'Files'
+        - curtin in-target -- sudo -u usuario dbus-run-session gsettings set
+          org.gnome.settings-daemon.plugins.media-keys.custom-keybindings:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/
+          command 'nautilus'
+        - curtin in-target -- sudo -u usuario dbus-run-session gsettings set
+          org.gnome.settings-daemon.plugins.media-keys.custom-keybindings:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/
+          binding '<Super>e'
+
+        - curtin in-target -- sudo -u usuario dbus-run-session gsettings set
+          org.gnome.settings-daemon.plugins.media-keys custom-keybindings
+          "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/']"
+        - curtin in-target -- sudo -u usuario dbus-run-session gsettings set
+          org.gnome.settings-daemon.plugins.media-keys.custom-keybindings:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/
+          name 'Tilix'
+        - curtin in-target -- sudo -u usuario dbus-run-session gsettings set
+          org.gnome.settings-daemon.plugins.media-keys.custom-keybindings:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/
+          command 'tilix'
+        - curtin in-target -- sudo -u usuario dbus-run-session gsettings set
+          org.gnome.settings-daemon.plugins.media-keys.custom-keybindings:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/
+          binding '<Control><Alt><Super>t'
+
+        - curtin in-target -- sudo -u usuario dbus-run-session gsettings set
+          org.gnome.settings-daemon.plugins.media-keys custom-keybindings
+          "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/']"
+        - curtin in-target -- sudo -u usuario dbus-run-session gsettings set
+          org.gnome.settings-daemon.plugins.media-keys.custom-keybindings:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/
+          name 'Cloudflare VPN On'
+        - curtin in-target -- sudo -u usuario dbus-run-session gsettings set
+          org.gnome.settings-daemon.plugins.media-keys.custom-keybindings:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/
+          command 'warp-cli connect'
+        - curtin in-target -- sudo -u usuario dbus-run-session gsettings set
+          org.gnome.settings-daemon.plugins.media-keys.custom-keybindings:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/
+          binding '<Control><Alt>v'
+
+        - curtin in-target -- sudo -u usuario dbus-run-session gsettings set
+          org.gnome.settings-daemon.plugins.media-keys custom-keybindings
+          "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/']"
+        - curtin in-target -- sudo -u usuario dbus-run-session gsettings set
+          org.gnome.settings-daemon.plugins.media-keys.custom-keybindings:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/
+          name 'Cloudflare VPN Off'
+        - curtin in-target -- sudo -u usuario dbus-run-session gsettings set
+          org.gnome.settings-daemon.plugins.media-keys.custom-keybindings:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/
+          command 'warp-cli disconnect'
+        - curtin in-target -- sudo -u usuario dbus-run-session gsettings set
+          org.gnome.settings-daemon.plugins.media-keys.custom-keybindings:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/
+          binding '<Control><Alt><Shift>v'
+
+        - curtin in-target -- sudo -u usuario dbus-run-session gsettings set
+          org.gnome.settings-daemon.plugins.media-keys custom-keybindings
+          "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/']"
+        - curtin in-target -- sudo -u usuario dbus-run-session gsettings set
+          org.gnome.settings-daemon.plugins.media-keys.custom-keybindings:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/
+          name 'Flameshot'
+        - curtin in-target -- sudo -u usuario dbus-run-session gsettings set
+          org.gnome.settings-daemon.plugins.media-keys.custom-keybindings:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/
+          command 'flameshot gui'
+        - curtin in-target -- sudo -u usuario dbus-run-session gsettings set
+          org.gnome.settings-daemon.plugins.media-keys.custom-keybindings:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/
+          binding '<Super>Print'
+
+        # Finalização e Limpeza
+        - curtin in-target -- apt update
+        - curtin in-target -- apt upgrade -y
+        - curtin in-target -- apt autoremove -y
+        - curtin in-target -- apt autoclean -y
+
+    shutdown: reboot

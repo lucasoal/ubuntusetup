@@ -12,6 +12,11 @@ The script automates the installation and configuration of a full development wo
 
 ## 📦 Packages / Softwares
 
+> [!IMPORTANT]
+> Use [autoinstall.yaml](autoinstall.yaml) during the instalation.
+>
+> <img src="assets/autoinstall.png" width="40%"> <br>
+
 - **APT**
   - `build-essential` | `curl` | `flameshot` | `git` | `gnome-clocks` | `gnome-shell-extension-manager` | `gnome-tweaks` | `gnome-weather` | `htop` | `jq` | `make` | `nodejs` | `python3-pip` | `python3-venv` | `remmina` | `software-properties-common` | `tar` | `tree` | `unzip` | `vim` | `wget` | `zip` | `zsh`
 - **Snap**
@@ -19,7 +24,7 @@ The script automates the installation and configuration of a full development wo
 - **DEB**
   - `Google Chrome` | `VS Code`
 - **PPA Deadsnakes**
-  - Python `3.10` | `3.11` | `3.12` | `3.13`
+  - Python `3.10` | `3.12` | `3.14`
 - **VPN**
   - Cloudflare WARP (1.1.1.1)
 
@@ -28,6 +33,9 @@ The script automates the installation and configuration of a full development wo
 - Games and related packages (`gnome-games`, `sauerbraten`, `supertux`, `steam`...)
 
 ## 🐚 Shell
+
+> [!IMPORTANT]
+> Use [install](./install) after install the OS.
 
 - **Terminal**
   - Oh My ZSH
