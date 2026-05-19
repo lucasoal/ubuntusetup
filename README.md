@@ -10,6 +10,8 @@ The script automates the installation and configuration of a full development wo
 <img src="assets/workspaces.png" width="49%"> <img src="assets/apps.png" width="49%"> <br>
 <img src="assets/desktop.png" width="49%">
 
+<hr> <hr> <hr>
+
 ## 📦 Packages / Softwares
 
 > [!IMPORTANT]
@@ -32,6 +34,8 @@ The script automates the installation and configuration of a full development wo
 
 - Games and related packages (`gnome-games`, `sauerbraten`, `supertux`, `steam`...)
 
+<hr> <hr> <hr>
+
 ## 🐚 Shell
 
 > [!IMPORTANT]
@@ -47,6 +51,8 @@ The script automates the installation and configuration of a full development wo
 - **Background**
   - Catalina 
 
+<hr> <hr> <hr>
+
 ## ⌨️ Keyboard Shortcuts
 
 - **Flameshot PrtSc**
@@ -61,6 +67,8 @@ The script automates the installation and configuration of a full development wo
 - **Cloudflare VPN Off**
   - `warp-cli disconnect`
   - `Ctrl` + `Alt` + `Shift` + `V`
+
+<hr> <hr> <hr>
 
 ## ⚜️ Install
 
