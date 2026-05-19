@@ -48,7 +48,7 @@ autoinstall:
     identity:
         realname: "Username"
         username: user
-        password: $y$j9T$FnwitrYOiBEcaMok75FIs.$3XxOYKBAHRyid5X7gMtwCevTrkpUHSYgdmNeCTI/kE6 # '123'
+        password: $y$j9T$FnwitrYOiBEcaMok75FIs.$3XxOYKBAHRyid5X7gMtwCevTrkpUHSYgdmNeCTI/kE6
         hostname: computer
 
     storage:
@@ -106,7 +106,9 @@ autoinstall:
 
         - curtin in-target -- dash -c "wget -q -O /tmp/vscode.deb 'https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64'"
 
-        - curtin in-target -- apt install -y /tmp/google-chrome.deb /tmp/vscode.deb
+        - curtin in-target -- apt install -y \
+          /tmp/google-chrome.deb \
+          /tmp/vscode.deb
 
         # Deadsnakes Python
         - curtin in-target -- add-apt-repository -y ppa:deadsnakes/ppa
