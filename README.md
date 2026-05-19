@@ -1,13 +1,7 @@
-<div align="center">
-  <h1>Ubuntu Pkgs + Shell Setup</h1>
-  <a href="https://github.com/lucasoal/ubntsetup/archive/refs/heads/main.zip">📁 • Download ZIP</a>
-  <br> <br>
-</div>
+# Ubuntu Pkgs + Shell Setup
 
 > [!WARNING]
 > Ubuntu 24.04 (Noble Numbat)
-
-The script automates the installation and configuration of a full development workstation</i>
 
 <div align="center">
   <img src="assets/lockscreen.png" width="49%"> <img src="assets/login.png" width="49%"> <br>
@@ -17,7 +11,7 @@ The script automates the installation and configuration of a full development wo
 
 <hr>
 
-### 📦 Packages / Softwares
+## 1. autoinstall.yaml
 
 > [!IMPORTANT]
 > Use [autoinstall.yaml](autoinstall.yaml) during the instalation.
@@ -26,22 +20,24 @@ The script automates the installation and configuration of a full development wo
 > ```
 > <div align="center"><img src="assets/autoinstall.png" width="50%"> <br> </div>
 
-- **APT**
-  - `build-essential` | `curl` | `flameshot` | `git` | `gnome-clocks` | `gnome-shell-extension-manager` | `gnome-tweaks` | `gnome-weather` | `htop` | `jq` | `make` | `nodejs` | `python3-pip` | `python3-venv` | `remmina` | `software-properties-common` | `tar` | `tree` | `unzip` | `vim` | `wget` | `zip` | `zsh`
-- **Snap**
-  - `brave` | `dbeaver-ce` | `discord` | `postman` | `pyenv` 
-- **DEB**
-  - `Google Chrome` | `VS Code`
-- **PPA Deadsnakes**
-  - Python `3.10` | `3.12` | `3.14`
-- **VPN**
-  - `Cloudflare WARP (1.1.1.1)`
+| ⚙️ **System Settings** | |
+|-|-|
+| Region & Language | `en_US.UTF-8`       |
+| Time/Zone         | `America/Sao_Paulo` |
+| ⌨️ **Keyboard**                         |
+| Layout            | `br`                |
+| Variant           | `abnt2`             |
+| 👤 **User**                             |
+| Real Name         | `Username`          |
+| Username          | `user`              |
+| Password          | `123`               |
+| Hostname          | `computer`          |
 
-#### 🗑️ Remove
 
-- Games and related packages (`gnome-games`, `sauerbraten`, `supertux`, `steam`...)
-
-<div align="center">⏺ ⏺ ⏺</div>
+| 📦 **Packages/Softwares** | |
+|-|-|
+| APT | `build-essential`, `ca-certificates`, `curl`, `dash`, `flameshot`, `git`, `git-lfs`, `gnome-clocks`, `gnome-shell-extension-manager`, `gnome-shell-extensions`, `gnome-tweaks`, `gnome-weather`, `htop`, `kdenlive`, `make`, `nodejs`, `python3-pip`, `python3-venv`, `remmina`, `snapd`, `software-properties-common`, `tilix`, `tree`, `unzip`, `vim`, `wget`, `whois`, `zsh` |
+| Snap | `brave`, `dbeaver-ce`, `discord`, `postman` |
 
 ### ⚜️ Install
 
@@ -65,36 +61,41 @@ chmod +x install
 sudo ./install
 ```
 
-<div align="center">⏺ ⏺ ⏺</div>
-
-### 🐚 Shell
-
 > [!IMPORTANT]
 > Use [install](./install) after install the OS.
 
-- **Terminal**
-  - Oh My ZSH
-    - Theme · "bira"
-- **Fonts**
-  - **Interface** · Google Sans 12
-  - **Documents** · Google Sans 11
-  - **Monospace** · Google Sans Code 12
-- **Background**
-  - Catalina 
+| 📦 **Packages/Softwares** | |
+|-|-|
+| DEB | `Google Chrome`, `VS Code`               |
+| PPA Deadsnakes | Python `3.10`, `3.12`, `3.14` |
+| VPN | `Cloudflare WARP (1.1.1.1)`              |
+| 🗑️ **Remove** |                                |
+| Games & related pkgs | `gnome-games`, `sauerbraten`, `supertux`, `steam`... |
 
-<div align="center">⏺ ⏺ ⏺</div>
+| 👁️ Visual | |
+|-|-|
+| 🖥️ **Terminal**                         |                       
+| Shell             | ZSH (Oh My ZSH)     |
+| Theme             | bira                |
 
-### ⌨️ Keyboard Shortcuts
+| 🔤 **Fonts**                            ||
+|-|-|
+| Interface         | Google Sans 12      |
+| Documents         | Google Sans 11      |
+| Monospace         | Google Sans Code 12 |
 
-- **Flameshot PrtSc**
-  - `flameshot gui`
-  - `Super` + `PrtSc`
-- **Home Folder**
-  - `nautilus $HOME`
-  - `Super` + `E`
-- **Cloudflare VPN On**
-  - `warp-cli connect`
-  - `Ctrl` + `Alt` + `V`
-- **Cloudflare VPN Off**
-  - `warp-cli disconnect`
-  - `Ctrl` + `Alt` + `Shift` + `V`
+| 🌄 **Background**                       ||
+|-|-|
+| Catalina          | https://wallpapercave.com/wp/wp10824773.jpg |
+
+| 🧩 **Extensions** | |
+|-|-|
+| Gnome | [Alphabetical App Grid](https://extensions.gnome.org/extension/4269/alphabetical-app-grid), [Blur my Shell](https://extensions.gnome.org/extension/3193/blur-my-shell), [Dash to Dock](https://extensions.gnome.org/extension/307/dash-to-dock), [Tactile](https://extensions.gnome.org/extension/4548/tactile), [Desktop Icons NG (DING)](https://extensions.gnome.org/extension/2087/desktop-icons-ng-ding), [Ubuntu AppIndicators](https://extensions.gnome.org/extension/1301/ubuntu-appindicators), [Ubuntu Tiling ](https://extensions.gnome.org/extension/3733/tiling-assistant)
+
+
+| ⌨️ Keyboard Shortcuts | | |
+|-|-|-|
+| Flameshot PrtSc    | `flameshot gui`       | `Super` + `PrtSc`              |
+| Home Folder        | `nautilus $HOME`      | `Super` + `E`                  |
+| Cloudflare VPN On  | `warp-cli connect`    | `Ctrl` + `Alt` + `V`           |
+| Cloudflare VPN Off | `warp-cli disconnect` | `Ctrl` + `Alt` + `Shift` + `V` |

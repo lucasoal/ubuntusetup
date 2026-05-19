@@ -569,7 +569,7 @@ main() {
     setup_cursor
     setup_dconf
     setup_cloudflare
-    setup_keybindings
+    # setup_keybindings
 
     # install_postgresql
 
