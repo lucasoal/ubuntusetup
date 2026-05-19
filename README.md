@@ -6,13 +6,39 @@
 
 The script automates the installation and configuration of a full development workstation</i>
 
-<img src="assets/lockscreen.png" width="49%"> <img src="assets/login.png" width="49%"> <br>
-<img src="assets/workspaces.png" width="49%"> <img src="assets/apps.png" width="49%"> <br>
-<img src="assets/desktop.png" width="49%">
+<div align="center">
+  <img src="assets/lockscreen.png" width="49%"> <img src="assets/login.png" width="49%"> <br>
+  <img src="assets/workspaces.png" width="49%"> <img src="assets/apps.png" width="49%"> <br>
+  <img src="assets/desktop.png" width="49%">
+</div>
+
+<hr>
+
+### ⚜️ Install
+
+**Direct install (recommended)**
+
+```sh
+# using cURL
+curl -fsSL https://raw.githubusercontent.com/lucasoal/my_gnome_setup/main/install | sudo bash
+```
+
+```sh
+# using Wget
+wget -qO- https://raw.githubusercontent.com/lucasoal/my_gnome_setup/main/install | sudo bash
+```
+
+**Manual installation**
+```sh
+git clone https://github.com/lucasoal/my_gnome_setup.git
+cd my_gnome_setup 
+chmod +x install
+sudo ./install
+```
 
 <hr> <hr> <hr>
 
-## 📦 Packages / Softwares
+### 📦 Packages / Softwares
 
 > [!IMPORTANT]
 > Use [autoinstall.yaml](autoinstall.yaml) during the instalation.
@@ -33,13 +59,13 @@ The script automates the installation and configuration of a full development wo
 - **VPN**
   - Cloudflare WARP (1.1.1.1)
 
-### 🗑️ Remove
+#### 🗑️ Remove
 
 - Games and related packages (`gnome-games`, `sauerbraten`, `supertux`, `steam`...)
 
 <hr> <hr> <hr>
 
-## 🐚 Shell
+### 🐚 Shell
 
 > [!IMPORTANT]
 > Use [install](./install) after install the OS.
@@ -56,7 +82,7 @@ The script automates the installation and configuration of a full development wo
 
 <hr> <hr> <hr>
 
-## ⌨️ Keyboard Shortcuts
+### ⌨️ Keyboard Shortcuts
 
 - **Flameshot PrtSc**
   - `flameshot gui`
@@ -72,9 +98,3 @@ The script automates the installation and configuration of a full development wo
   - `Ctrl` + `Alt` + `Shift` + `V`
 
 <hr> <hr> <hr>
-
-## ⚜️ Install
-
-```sh
-chmod +x install && sudo ./install
-```
