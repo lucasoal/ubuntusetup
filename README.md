@@ -10,9 +10,7 @@ The script automates the installation and configuration of a full development wo
 <img src="assets/workspaces.png" width="49%"> <img src="assets/apps.png" width="49%"> <br>
 <img src="assets/desktop.png" width="49%">
 
----
----
----
+<hr> <hr> <hr>
 
 ## 📦 Packages / Softwares
 
