@@ -1,6 +1,6 @@
 <div align="center">
-  <h1>GNOME + Environment Setup</h1>
-  <a href="https://github.com/lucasoal/my_gnome_setup/archive/refs/heads/main.zip">📁 • Download ZIP</a>
+  <h1>Ubuntu + Env Setup</h1>
+  <a href="https://github.com/lucasoal/ubntsetup/archive/refs/heads/main.zip">📁 • Download ZIP</a>
   <br> <br>
 </div>
 
@@ -23,18 +23,18 @@ The script automates the installation and configuration of a full development wo
 
 ```sh
 # using cURL
-curl -fsSL https://raw.githubusercontent.com/lucasoal/my_gnome_setup/main/install | sudo bash
+curl -fsSL https://raw.githubusercontent.com/lucasoal/ubntsetup/main/install | sudo bash
 ```
 
 ```sh
 # using Wget
-wget -qO- https://raw.githubusercontent.com/lucasoal/my_gnome_setup/main/install | sudo bash
+wget -qO- https://raw.githubusercontent.com/lucasoal/ubntsetup/main/install | sudo bash
 ```
 
 **Manual installation**
 ```sh
-git clone https://github.com/lucasoal/my_gnome_setup.git
-cd my_gnome_setup 
+git clone https://github.com/lucasoal/ubntsetup.git
+cd ubntsetup 
 chmod +x install
 sudo ./install
 ```
@@ -46,7 +46,7 @@ sudo ./install
 > [!IMPORTANT]
 > Use [autoinstall.yaml](autoinstall.yaml) during the instalation.
 >   ```
->   https://raw.githubusercontent.com/lucasoal/my_gnome_setup/refs/heads/main/autoinstall.yaml
+>   https://raw.githubusercontent.com/lucasoal/ubntsetup/refs/heads/main/autoinstall.yaml
 >   ```
 >
 > <img src="assets/autoinstall.png" width="40%"> <br>

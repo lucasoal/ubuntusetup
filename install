@@ -12,10 +12,10 @@ GREEN='\033[1;32m'
 RED='\033[1;31m'
 NC='\033[0m'
 
-REPO_URL="https://github.com/lucasoal/my_gnome_setup.git"
-TEMP_DIR="/tmp/my_gnome_setup"
+REPO_URL="https://github.com/lucasoal/ubntsetup.git"
+TEMP_DIR="/tmp/ubntsetup"
 
-LOG_FILE="/tmp/my_gnome_setup_$(date +%F_%H-%M-%S).log"
+LOG_FILE="/tmp/ubntsetup_$(date +%F_%H-%M-%S).log"
 
 INDENT=""
 OLD_INDENTS=()
@@ -70,7 +70,7 @@ check_root() {
         error "Este script deve ser executado com sudo."
         echo
         echo "Use:"
-        echo "curl -fsSL https://raw.githubusercontent.com/lucasoal/my_gnome_setup/main/install | sudo bash"
+        echo "curl -fsSL https://raw.githubusercontent.com/lucasoal/ubntsetup/main/install | sudo bash"
         exit 1
     fi
 }
