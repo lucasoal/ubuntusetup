@@ -1,155 +1,169 @@
 #cloud-config
+
 autoinstall:
-version: 1
+  version: 1
 
-locale: pt_BR.UTF-8
-timezone: America/Sao_Paulo
+  locale: pt_BR.UTF-8
+  timezone: America/Sao_Paulo
 
-keyboard:
-layout: br
+  keyboard:
+    layout: br
 
-identity:
-realname: "Username"
-username: user
-hostname: computer
-password: $y$j9T$FnwitrYOiBEcaMok75FIs.$3XxOYKBAHRyid5X7gMtwCevTrkpUHSYgdmNeCTI/kE6
+  identity:
+    realname: "Username"
+    username: user
+    hostname: computer
+    password: "$y$j9T$FnwitrYOiBEcaMok75FIs.$3XxOYKBAHRyid5X7gMtwCevTrkpUHSYgdmNeCTI/kE6" # 123
 
-storage:
-layout:
-name: direct
+  storage:
+    layout:
+      name: direct
 
-early-commands:
-- echo 'linux-generic-hwe-24.04' > /run/kernel-meta-package
+  package_update: true
+  package_upgrade: false
 
-packages:
-- ubuntu-desktop
-- curl
-- wget
-- git
-- git-lfs
-- vim
-- zsh
-- tilix
-- flameshot
-- htop
-- tree
-- unzip
-- zip
-- ripgrep
-- fd-find
-- bat
-- fzf
-- jq
-- build-essential
-- make
-- gpg
-- software-properties-common
-- python3-pip
-- python3-venv
-- openssh-server
-- remmina
-- default-jdk
-- postgresql
-- postgresql-contrib
-- yt-dlp
-- neofetch
-- gnome-tweaks
-- gnome-shell-extension-manager
-- gnome-shell-extensions
+  ssh:
+    install-server: true
 
-snaps:
-- name: firefox
-- name: snap-store
-- name: dbeaver-ce
-- name: discord
-- name: postman
-- name: onlyoffice-desktopeditors
+  early-commands:
+    - echo 'linux-generic-hwe-24.04' > /run/kernel-meta-package
 
-late-commands:
+  packages:
+    - curl
+    - wget
+    - git
+    - git-lfs
+    - vim
+    - zsh
+    - tilix
+    - flameshot
+    - htop
+    - tree
+    - unzip
+    - zip
+    - ripgrep
+    - fd-find
+    - bat
+    - fzf
+    - jq
+    - build-essential
+    - make
+    - gpg
+    - software-properties-common
+    - python3-pip
+    - python3-venv
+    - openssh-server
+    - remmina
+    - default-jdk
+    - postgresql
+    - postgresql-contrib
+    - yt-dlp
+    - fastfetch
+    - gnome-tweaks
+    - gnome-shell-extension-manager
+    - gnome-shell-extensions
 
-```
-# =========================
-# GRUB
-# =========================
-- curtin in-target -- sed -i 's/^GRUB_CMDLINE_LINUX_DEFAULT=.*/GRUB_CMDLINE_LINUX_DEFAULT="quiet splash"/' /etc/default/grub
-- curtin in-target -- update-grub
+  snaps:
+    - name: firefox
+    - name: dbeaver-ce
+    - name: discord
+    - name: postman
+    - name: onlyoffice-desktopeditors
 
-# =========================
-# NetworkManager
-# =========================
-- rm -f /target/etc/netplan/00-installer-config*.yaml
-- |
-  printf "network:\n  version: 2\n  renderer: NetworkManager\n" \
-  > /target/etc/netplan/01-network-manager-all.yaml
+  late-commands:
 
-# =========================
-# Limpeza básica
-# =========================
-- curtin in-target -- apt autoremove -y
-- curtin in-target -- apt autoclean -y
+    # =====================================================
+    # GRUB
+    # =====================================================
 
-# =========================
-# Remover jogos GNOME
-# =========================
-- curtin in-target -- bash -c "apt purge -y aisleriot gnome-mahjongg gnome-mines gnome-sudoku && apt autoremove -y"
+    - curtin in-target -- sed -i 's/^GRUB_CMDLINE_LINUX_DEFAULT=.*/GRUB_CMDLINE_LINUX_DEFAULT="quiet splash"/' /etc/default/grub
 
-# =========================
-# Google Chrome
-# =========================
-- curtin in-target -- bash -c "wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -O /tmp/chrome.deb"
-- curtin in-target -- apt install -y /tmp/chrome.deb
+    - curtin in-target -- update-grub
 
-# =========================
-# VSCode
-# =========================
-- curtin in-target -- bash -c "wget -q 'https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64' -O /tmp/vscode.deb"
-- curtin in-target -- apt install -y /tmp/vscode.deb
+    # =====================================================
+    # NETWORKMANAGER
+    # =====================================================
 
-# =========================
-# Deadsnakes PPA
-# =========================
-- curtin in-target -- add-apt-repository -y ppa:deadsnakes/ppa
-- curtin in-target -- apt update
-- curtin in-target -- apt install -y python3.10 python3.13
+    - rm -f /target/etc/netplan/00-installer-config*.yaml
 
-# =========================
-# NVIDIA Drivers
-# =========================
-- curtin in-target -- apt install -y ubuntu-drivers-common
-- curtin in-target -- ubuntu-drivers autoinstall
+    - |
+      printf "network:\n  version: 2\n  renderer: NetworkManager\n" \
+      > /target/etc/netplan/01-network-manager-all.yaml
 
-# =========================
-# Cloudflare WARP
-# =========================
-- curtin in-target -- bash -c "curl -fsSL https://pkg.cloudflareclient.com/pubkey.gpg | gpg --dearmor -o /usr/share/keyrings/cloudflare-warp-archive-keyring.gpg"
+    # =====================================================
+    # LIMPEZA INICIAL
+    # =====================================================
 
-- curtin in-target -- bash -c "echo 'deb [signed-by=/usr/share/keyrings/cloudflare-warp-archive-keyring.gpg] https://pkg.cloudflareclient.com/ noble main' > /etc/apt/sources.list.d/cloudflare-client.list"
+    - curtin in-target -- apt autoremove -y
 
-- curtin in-target -- apt update
-- curtin in-target -- apt install -y cloudflare-warp
+    - curtin in-target -- apt autoclean -y
 
-# =========================
-# Oh My Zsh
-# =========================
-- curtin in-target -- sudo -u user sh -c "RUNZSH=no CHSH=no KEEP_ZSHRC=yes $(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    # =====================================================
+    # REMOVER JOGOS GNOME
+    # =====================================================
 
-- curtin in-target -- sed -i 's/^ZSH_THEME=.*/ZSH_THEME="bira"/' /home/user/.zshrc
+    - curtin in-target -- bash -c "apt purge -y aisleriot gnome-mahjongg gnome-mines gnome-sudoku && apt autoremove -y"
 
-- curtin in-target -- chsh -s /usr/bin/zsh user
+    # =====================================================
+    # GOOGLE CHROME
+    # =====================================================
 
-# =========================
-# Diretórios úteis
-# =========================
-- curtin in-target -- sudo -u user mkdir -p /home/user/Projects
-- curtin in-target -- sudo -u user mkdir -p /home/user/Scripts
+    - curtin in-target -- bash -c "wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -O /tmp/chrome.deb && apt install -y /tmp/chrome.deb"
 
-# =========================
-# Atualização final
-# =========================
-- curtin in-target -- apt update
-- curtin in-target -- apt upgrade -y
-- curtin in-target -- apt autoremove -y
-- curtin in-target -- apt autoclean -y
-```
+    # =====================================================
+    # VSCODE
+    # =====================================================
+
+    - curtin in-target -- bash -c "wget -q 'https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64' -O /tmp/vscode.deb && apt install -y /tmp/vscode.deb"
+
+    # =====================================================
+    # DEADSNAKES
+    # =====================================================
+
+    - curtin in-target -- add-apt-repository -y ppa:deadsnakes/ppa
+
+    - curtin in-target -- apt update
+
+    - curtin in-target -- apt install -y python3.10 python3.13 || true
+
+    # =====================================================
+    # CLOUDFLARE WARP
+    # =====================================================
+
+    - curtin in-target -- bash -c "curl -fsSL https://pkg.cloudflareclient.com/pubkey.gpg | gpg --dearmor -o /usr/share/keyrings/cloudflare-warp-archive-keyring.gpg"
+
+    - curtin in-target -- bash -c "echo 'deb [signed-by=/usr/share/keyrings/cloudflare-warp-archive-keyring.gpg] https://pkg.cloudflareclient.com/ jammy main' > /etc/apt/sources.list.d/cloudflare-client.list"
+
+    - curtin in-target -- apt update
+
+    - curtin in-target -- apt install -y cloudflare-warp || true
+
+    # =====================================================
+    # OH MY ZSH
+    # =====================================================
+
+    - curtin in-target -- sudo -u user bash -c "curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | RUNZSH=no CHSH=no KEEP_ZSHRC=yes sh"
+
+    - curtin in-target -- sed -i 's/^ZSH_THEME=.*/ZSH_THEME="bira"/' /home/user/.zshrc
+
+    - curtin in-target -- chsh -s /usr/bin/zsh user
+
+    # =====================================================
+    # DIRETÓRIOS ÚTEIS
+    # =====================================================
+
+    - curtin in-target -- sudo -u user mkdir -p /home/user/Projects
+
+    - curtin in-target -- sudo -u user mkdir -p /home/user/Scripts
+
+    # =====================================================
+    # UPDATE FINAL
+    # =====================================================
+
+    - curtin in-target -- apt update
+
+    - curtin in-target -- apt autoremove -y
+
+    - curtin in-target -- apt autoclean -y
 
 shutdown: reboot
