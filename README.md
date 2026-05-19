@@ -77,19 +77,13 @@ sudo ./install
 | 🖥️ **Terminal**                         |                       
 | Shell             | ZSH (Oh My ZSH)     |
 | Theme             | bira                |
-
-| 🔤 **Fonts**                            ||
-|-|-|
+| 🔤 **Fonts**                            |
 | Interface         | Google Sans 12      |
 | Documents         | Google Sans 11      |
 | Monospace         | Google Sans Code 12 |
-
-| 🌄 **Background**                       ||
-|-|-|
+| 🌄 **Background**                       |
 | Catalina          | https://wallpapercave.com/wp/wp10824773.jpg |
-
-| 🧩 **Extensions** | |
-|-|-|
+| 🧩 **Extensions**                       |
 | Gnome | [Alphabetical App Grid](https://extensions.gnome.org/extension/4269/alphabetical-app-grid), [Blur my Shell](https://extensions.gnome.org/extension/3193/blur-my-shell), [Dash to Dock](https://extensions.gnome.org/extension/307/dash-to-dock), [Tactile](https://extensions.gnome.org/extension/4548/tactile), [Desktop Icons NG (DING)](https://extensions.gnome.org/extension/2087/desktop-icons-ng-ding), [Ubuntu AppIndicators](https://extensions.gnome.org/extension/1301/ubuntu-appindicators), [Ubuntu Tiling ](https://extensions.gnome.org/extension/3733/tiling-assistant)
 
 
