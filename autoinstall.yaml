@@ -225,15 +225,15 @@ autoinstall:
         - curtin in-target -- apt install -y python3.10 python3.12 python3.14
 
         # 4. Cloudflare WARP
-        - curtin in-target -- dash -c "curl -fsSL
-          https://pkg.cloudflareclient.com/pubkey.gpg | gpg --dearmor -o
-          /usr/share/keyrings/cloudflare-warp.gpg"
-        - curtin in-target -- dash -c "echo 'deb
-          [signed-by=/usr/share/keyrings/cloudflare-warp.gpg]
-          https://pkg.cloudflareclient.com/ focal main' >
-          /etc/apt/sources.list.d/cloudflare-client.list"
-        - curtin in-target -- apt update
-        - curtin in-target -- apt install -y cloudflare-warp
+        # - curtin in-target -- dash -c "curl -fsSL
+        #   https://pkg.cloudflareclient.com/pubkey.gpg | gpg --dearmor -o
+        #   /usr/share/keyrings/cloudflare-warp.gpg"
+        # - curtin in-target -- dash -c "echo 'deb
+        #   [signed-by=/usr/share/keyrings/cloudflare-warp.gpg]
+        #   https://pkg.cloudflareclient.com/ focal main' >
+        #   /etc/apt/sources.list.d/cloudflare-client.list"
+        # - curtin in-target -- apt update
+        # - curtin in-target -- apt install -y cloudflare-warp
 
         # 5. Oh My Zsh e Shell (para o usuário 'usuario')
         - curtin in-target -- sudo -u usuario sh -c "$(curl -fsSL
