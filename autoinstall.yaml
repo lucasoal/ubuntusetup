@@ -26,12 +26,16 @@ autoinstall:
         - kdenlive
         - make
         - nodejs
+        - postgresql
+        - postgresql-contrib
         - python3-pip
         - python3-venv
         - remmina
         - snapd
         - software-properties-common
         - tilix
+        - traceroute
+        - transmission-gtk
         - tree
         - unzip
         - vim
