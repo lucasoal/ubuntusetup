@@ -8,7 +8,6 @@ autoinstall:
 
     keyboard:
         layout: br
-        variant: abnt2
 
     packages:
         - build-essential
