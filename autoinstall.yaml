@@ -63,6 +63,8 @@ autoinstall:
         - echo 'linux-generic-hwe-24.04' > /run/kernel-meta-package
 
     late-commands:
+        - curtin in-target -- apt purge aisleriot gnome-mines gnome-mahjongg gnome-sudoku -y
+        - curtin in-target -- apt purge thunderbird rhythmbox shotwell remmina -y
         - curtin in-target -- apt update
         - curtin in-target -- apt upgrade -y
         - curtin in-target -- apt autoremove -y
