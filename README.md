@@ -16,10 +16,6 @@
 > [!IMPORTANT]
 > Use [autoinstall.yaml](autoinstall.yaml) during the instalation.
 > ```
-> https://lucasoal.github.io/ubntsetup/autoinstall.yaml
-> ```
-> or
-> ```
 > https://raw.githubusercontent.com/lucasoal/ubntsetup/refs/heads/main/autoinstall.yaml
 > ```
 > 
