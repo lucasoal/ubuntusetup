@@ -50,7 +50,7 @@ autoinstall:
         - name: postman
 
     identity:
-        realname: "Username"
+        realname: "User"
         username: user
         password: $y$j9T$FnwitrYOiBEcaMok75FIs.$3XxOYKBAHRyid5X7gMtwCevTrkpUHSYgdmNeCTI/kE6
         hostname: computer
