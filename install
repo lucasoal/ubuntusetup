@@ -2,7 +2,7 @@
 
 # ==============================================================================
 # UBUNTU PRO SETUP — REMOTE INSTALLER READY
-# curl -fsSL https://raw.githubusercontent.com/lucasoal/ubntsetup/main/install | sudo bash
+# curl -fsSL https://raw.githubusercontent.com/lucasoal/ubuntusetup/main/install | sudo bash
 # ==============================================================================
 
 set -Eeuo pipefail
@@ -11,7 +11,7 @@ set -Eeuo pipefail
 # CONFIG
 # ==============================================================================
 
-RAW_BASE="https://raw.githubusercontent.com/lucasoal/ubntsetup/main"
+RAW_BASE="https://raw.githubusercontent.com/lucasoal/ubuntusetup/main"
 
 LOG_FILE="/tmp/ubuntu-pro-setup-$(date +%F-%H%M%S).log"
 
@@ -364,7 +364,7 @@ setup_wallpaper() {
     local bg="/usr/share/backgrounds/ubnt-wallpaper.jpg"
 
     try curl -fL \
-        https://wallpapercave.com/wp/wp10824773.jpg \
+        https://raw.githubusercontent.com/lucasoal/ubuntusetup/refs/heads/main/src/backgrounds/Fuji_san_by_amaral.png \
         -o "$bg"
 
     try run_user_gsettings \

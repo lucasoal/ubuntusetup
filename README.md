@@ -20,7 +20,7 @@
 > [!IMPORTANT]
 > Use [autoinstall.yaml](autoinstall.yaml) during the instalation.
 > ```
-> https://raw.githubusercontent.com/lucasoal/ubntsetup/refs/heads/main/autoinstall.yaml
+> https://raw.githubusercontent.com/lucasoal/ubuntusetup/refs/heads/main/autoinstall.yaml
 > ```
 > 
 > <div align="center"><img src="assets/autoinstall.png" width="50%"> <br> </div>
@@ -55,18 +55,18 @@
 - **Direct install (recommended)**
   ```sh
   # using cURL
-  curl -fsSL https://raw.githubusercontent.com/lucasoal/ubntsetup/main/install | sudo bash
+  curl -fsSL https://raw.githubusercontent.com/lucasoal/ubuntusetup/main/install | sudo bash
   ```
 
   ```sh
   # using Wget
-  wget -qO- https://raw.githubusercontent.com/lucasoal/ubntsetup/main/install | sudo bash
+  wget -qO- https://raw.githubusercontent.com/lucasoal/ubuntusetup/main/install | sudo bash
   ```
 
 - **Manual installation**
   ```sh
-  git clone https://github.com/lucasoal/ubntsetup
-  cd ubntsetup 
+  git clone https://github.com/lucasoal/ubuntusetup
+  cd ubuntusetup 
   chmod +x install && sudo ./install
   ```
 
@@ -92,7 +92,7 @@
 | Documents         | Google Sans 11      |
 | Monospace         | Google Sans Code 12 |
 | 🌄 **Background**                       |
-| Catalina          | https://wallpapercave.com/wp/wp10824773.jpg |
+| Catalina          | [Fuji_san_by_amaral.png](./src/backgrounds/Fuji_san_by_amaral.png)  |
 | 🧩 **Extensions**                       |
 | Gnome | [Alphabetical App Grid](https://extensions.gnome.org/extension/4269/alphabetical-app-grid), [Blur my Shell](https://extensions.gnome.org/extension/3193/blur-my-shell), [Dash to Dock](https://extensions.gnome.org/extension/307/dash-to-dock), [Tactile](https://extensions.gnome.org/extension/4548/tactile), [Desktop Icons NG (DING)](https://extensions.gnome.org/extension/2087/desktop-icons-ng-ding), [Ubuntu AppIndicators](https://extensions.gnome.org/extension/1301/ubuntu-appindicators), [Ubuntu Tiling ](https://extensions.gnome.org/extension/3733/tiling-assistant)
 
